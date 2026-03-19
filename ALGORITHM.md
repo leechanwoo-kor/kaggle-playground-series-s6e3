@@ -32,14 +32,15 @@
 - **Target 변수:** `Yes` $\rightarrow$ 1, `No` $\rightarrow$ 0 직관적 매핑
 
 ### Feature Engineering (파생 변수 생성)
-- **파일:** `experiment_xgb_fe.py`
-- **적용 로직:**
-  1. `TotalCharges` 수치형 변환 및 결측치 0 대체
-  2. `HasFamily`: 부양가족이나 파트너가 있는지 이진화
-  3. `TotalServices`: 유료 부가 서비스 총 결제 개수
-  4. `IsAutoPayment`: 'automatic' 단어를 포함하는 자동결제 여부
-  5. `ActualMonthlyCharges_Ratio`: (총 지불금액 / 가입기간) 비율 계산
-  6. `Tenure_Group`: 가입기간(연차별)을 5개 그룹으로 Binning(구간화)
+- **파일:** `experiment_xgb_fe_advanced.py` (최신 적용)
+- **적용 로직 (고도화):**
+  1. **요금 편차:** `charges_per_tenure`, `total_vs_expected`, `total_minus_expected` 
+  2. **약정 진척도:** (개월 수치화) `contract_length`, `contract_progress`, `charges_per_contract`
+  3. **서비스 사용량:** `n_services`, `charges_per_service`
+  4. **고객 세그먼트 플래그:** VIP 여부(`is_high_value`), 신규(`is_new_customer`), 충성(`is_loyal_customer`)
+  5. **기존 활용 변수 추가:** `HasFamily`, `is_autopay`
+  6. **분포 스케일링:** 원본 수치형 3종에 대한 `Log1p`, `Sqrt` 변수 생성
+  7. **범주형 교차(Crosses):** `Contract__InternetService` 등 핵심 변수 쌍(Pair) 문자로 결합
 
 ---
 

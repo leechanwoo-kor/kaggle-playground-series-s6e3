@@ -16,7 +16,7 @@
 | **#002** | 2026-03-19 | XGBRegressor | `experiment_xgbregressor.py` 생성. Classifier 대신 Regressor를 사용하여 연속값 산출 및 AUC 랭킹 활용 | 5-Fold SKF | 0.91508 | 0.91255 | Baseline(0.91608/0.91339) 대비 하락. 이후 앙상블 블렌딩 재료로 활용 예정 |
 | **#003** | 2026-03-19 | Ensemble (Blend) | XGBClassifier(0.6) + XGBRegressor(0.4) 가중 평균(Weighted Average) 블렌딩 | - | (합성 산출물) | 0.91329 | 단일 XGBRegressor(0.91255) 보단 크게 올랐으나 Baseline(0.91339) 에는 미치지 못함 |
 | **#004** | 2026-03-19 | XGBClassifier (FE) | `experiment_xgb_fe.py` 생성. 도메인 지식 기반 파생 변수 6개 추가 (Binning, 비율 분할, 자동결제 여부 등) | 5-Fold SKF | 0.91619 | 0.91343 | Baseline(0.91339) 무사히 돌파! 조금 더 파격적이거나 고도화된 FE 기법 필요확인 |
-| **#005** | - | - | - | - | - | - | - |
+| **#005** | 2026-03-19 | XGBClassifier (Adv FE) | `experiment_xgb_fe_advanced.py` 생성. 상위권 커널의 타겟 인코딩 제외 FE(약정 진척도, 결제액 오차, 서비스 조합 등) 적용 | 5-Fold SKF | ~0.9161 | 0.91358 | 단일 모델. 단순 FE(#004: 0.91343) 대비 Public LB **0.00015 상승!** 고급 FE의 확실한 효과 입증 |
 
 ---
 

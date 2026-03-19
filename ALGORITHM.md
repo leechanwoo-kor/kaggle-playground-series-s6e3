@@ -31,8 +31,8 @@
 - **범주형(Categorical):** Scikit-Learn의 `LabelEncoder`를 사용하여 `object`, `string` 문자를 정수형 ID로 단순 치환. 
 - **Target 변수:** `Yes` $\rightarrow$ 1, `No` $\rightarrow$ 0 직관적 매핑
 
-### Feature Engineering (파생 변수 생성)
-- **파일:** `experiment_xgb_fe_advanced.py` (최신 적용)
+### 🎯 Feature Engineering (파생 변수 생성)
+- **파일:** `experiment_xgb_fe_advanced.py` (순수 FE) & `experiment_xgb_fe_te.py` (TE 추가)
 - **적용 로직 (고도화):**
   1. **요금 편차:** `charges_per_tenure`, `total_vs_expected`, `total_minus_expected` 
   2. **약정 진척도:** (개월 수치화) `contract_length`, `contract_progress`, `charges_per_contract`
@@ -41,6 +41,14 @@
   5. **기존 활용 변수 추가:** `HasFamily`, `is_autopay`
   6. **분포 스케일링:** 원본 수치형 3종에 대한 `Log1p`, `Sqrt` 변수 생성
   7. **범주형 교차(Crosses):** `Contract__InternetService` 등 핵심 변수 쌍(Pair) 문자로 결합
+
+### 🎯 Target Encoding (타겟 인코딩)
+- **파일:** `experiment_xgb_fe_te.py`
+- **적용 대상 컬럼:**
+  - 기존 범주형 컬럼들, 새롭게 결합한 교차 쌍 컬럼들, 그리고 수치형을 강제로 그룹화(Binning)한 컬럼(`tenure_bin`, `monthly_charge_bin`)
+- **적용 로직:**
+  - 5-Fold StratifiedKFold 내부 루프에서 학습용 K-Fold 데이터만 이용해 평균과 표준편차를 구함 (OOF 방식으로 Data Leakage 완벽 차단)
+  - 각 범주 집단별로 과녁(이탈률)의 **`평균(Mean)`** 과 **`표준편차(Std)`** 값을 추출해 수치형 피처로 새롭게 추가.
 
 ---
 

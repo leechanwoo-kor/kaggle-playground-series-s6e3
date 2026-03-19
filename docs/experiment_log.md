@@ -15,7 +15,7 @@
 | **#001** | 2026-03-19 | XGBoost (Baseline) | 기본 `baseline_model.py` 실행 (수치형 유지 + 범주형 Label Encoding), 하이퍼파라미터 초기값 | 5-Fold SKF | 0.91608 | 0.91339 | 향후 이 점수를 베이스라인 기준으로 삼을 예정입니다. |
 | **#002** | 2026-03-19 | XGBRegressor | `experiment_xgbregressor.py` 생성. Classifier 대신 Regressor를 사용하여 연속값 산출 및 AUC 랭킹 활용 | 5-Fold SKF | 0.91508 | 0.91255 | Baseline(0.91608/0.91339) 대비 하락. 이후 앙상블 블렌딩 재료로 활용 예정 |
 | **#003** | 2026-03-19 | Ensemble (Blend) | XGBClassifier(0.6) + XGBRegressor(0.4) 가중 평균(Weighted Average) 블렌딩 | - | (합성 산출물) | 0.91329 | 단일 XGBRegressor(0.91255) 보단 크게 올랐으나 Baseline(0.91339) 에는 미치지 못함 |
-| **#004** | - | - | - | - | - | - | - |
+| **#004** | 2026-03-19 | XGBClassifier (FE) | `experiment_xgb_fe.py` 생성. 도메인 지식 기반 파생 변수 6개 추가 (Binning, 비율 분할, 자동결제 여부 등) | 5-Fold SKF | 0.91619 | 0.91343 | Baseline(0.91339) 무사히 돌파! 조금 더 파격적이거나 고도화된 FE 기법 필요확인 |
 | **#005** | - | - | - | - | - | - | - |
 
 ---

@@ -31,6 +31,16 @@
 - **범주형(Categorical):** Scikit-Learn의 `LabelEncoder`를 사용하여 `object`, `string` 문자를 정수형 ID로 단순 치환. 
 - **Target 변수:** `Yes` $\rightarrow$ 1, `No` $\rightarrow$ 0 직관적 매핑
 
+### Feature Engineering (파생 변수 생성)
+- **파일:** `experiment_xgb_fe.py`
+- **적용 로직:**
+  1. `TotalCharges` 수치형 변환 및 결측치 0 대체
+  2. `HasFamily`: 부양가족이나 파트너가 있는지 이진화
+  3. `TotalServices`: 유료 부가 서비스 총 결제 개수
+  4. `IsAutoPayment`: 'automatic' 단어를 포함하는 자동결제 여부
+  5. `ActualMonthlyCharges_Ratio`: (총 지불금액 / 가입기간) 비율 계산
+  6. `Tenure_Group`: 가입기간(연차별)을 5개 그룹으로 Binning(구간화)
+
 ---
 
 ## 📈 검증 전략 (Validation Strategy)
